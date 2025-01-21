@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"node convert.js",
+    "start": "node convert.js",
     "test": "jest"
   },
   "repository": {
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/DIVYAKRISHNASATYASRI/Node-CurrencyConverter/issues"
   },
-  "homepage": "https://github.com/DIVYAKRISHNASATYASRI/Node-CurrencyConverter#readme"
+  "homepage": "https://github.com/DIVYAKRISHNASATYASRI/Node-CurrencyConverter#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
