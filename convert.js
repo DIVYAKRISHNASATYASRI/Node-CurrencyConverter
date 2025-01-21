@@ -1,42 +1,43 @@
-const readline = require("readline");
+const readline = require('readline');
 
-// Set a fixed conversion rate (Example: 1 INR = 0.012 USD)
-const INR_TO_USD_RATE = 0.012;
+const FIXED_CONVERSION_RATE = 0.012; // Set your fixed conversion rate for INR to USD
 
-// Create an interface for user input/output
 const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+    input: process.stdin,
+    output: process.stdout,
 });
 
-console.log("Welcome to INR to USD Converter!");
-console.log(`Fixed Exchange Rate: 1 INR = ${INR_TO_USD_RATE} USD`);
-console.log("Type 'exit' to quit.\n");
+const convertInrToUsd = (amount) => (amount * FIXED_CONVERSION_RATE).toFixed(2);
 
-// Function to convert INR to USD
-const convertCurrency = () => {
-  rl.question("Enter amount in INR: ", (input) => {
-    if (input.toLowerCase() === "exit") {
-      console.log("Thank you for using the currency converter. Goodbye!");
-      rl.close();
-      return;
-    }
+const promptUser = () => {
+    rl.question(
+        'Enter amount in INR to convert to USD (or type "exit" to quit): ',
+        (input) => {
+            if (input.toLowerCase() === 'exit') {
+                console.log('Exiting the program. Goodbye!');
+                rl.close();
+                return;
+            }
 
-    // Validate input
-    const amount = parseFloat(input);
-    if (isNaN(amount) || amount < 0) {
-      console.log("Invalid input. Please enter a valid number.\n");
-      convertCurrency();
-      return;
-    }
+            const amountInr = parseFloat(input);
 
-    const usdAmount = (amount * INR_TO_USD_RATE).toFixed(2);
-    console.log(`₹${amount} INR = $${usdAmount} USD\n`);
-
-    // Ask again
-    convertCurrency();
-  });
+            if (isNaN(amountInr) || amountInr <= 0) {
+                console.log('Invalid input. Please enter a valid number greater than 0.');
+                promptUser();
+            } else {
+                const amountUsd = convertInrToUsd(amountInr);
+                console.log(`₹${amountInr} is approximately $${amountUsd}`);
+                promptUser();
+            }
+        }
+    );
 };
 
-// Start the conversion process
-convertCurrency();
+if (require.main === module) {
+    // This block runs only if the script is executed directly
+    console.log('Welcome to the INR to USD Converter!');
+    promptUser();
+}
+
+module.exports = { convertInrToUsd }; // Export the function for testing
+
