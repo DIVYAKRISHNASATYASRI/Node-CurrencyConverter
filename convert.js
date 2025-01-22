@@ -16,5 +16,5 @@ res.json({ inr, usd});
 res.status(500).json({ error: e });
 }
 });
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
